@@ -35,6 +35,11 @@ class Local {
     set empleados(empleados) {
         this._empleados = empleados;
     }
+    imprimirOrdenadores() {
+        for (let o of this._ordenadores) {
+            console.log(o.imprimirOrdenador());
+        }
+    }
 }
 exports.Local = Local;
 const localSchema = new mongoose_1.Schema({

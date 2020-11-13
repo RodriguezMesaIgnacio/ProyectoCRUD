@@ -9,6 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const Local_1 = require("./models/Local");
+const Ordenador_1 = require("./models/Ordenador");
+const database_1 = require("./database/database");
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     //  INTRODUCIR PERSONA    INTRODUCIR PERSONA    INTRODUCIR PERSONA    INTRODUCIR PERSONA    INTRODUCIR PERSONA    INTRODUCIR PERSONA  
     // let dni =  await leerTeclado('DNI')
@@ -81,23 +84,24 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     //     .catch( (err: any) => console.log('Error: '+ err)) 
     // await db.desconectarBD()
     //  CARGAR LOCAL Y VER ORDENADORES
-    // await db.conectarBD()
-    // await Locales.findOne(
-    //     {_direccion:'5'},
-    //     (error, l: any) => {
-    //         if (error) console.log(error)
-    //         else {
-    //             if (l==null) console.log('No existe local con esa dirección')
-    //             else {
-    //                 let o : tOrdenador
-    //                 for (o of l._ordenadores){
-    //                     let o1 = new Ordenador(o._nombre, o._precio, o._marca, o._fechaCompra, o._operativo)
-    //                     console.log(o1.imprimirOrdenador())
-    //                 }
-    //             }
-    //         }
-    //     }
-    // )  
-    // await db.desconectarBD()
+    yield database_1.db.conectarBD();
+    yield Local_1.Locales.findOne({ _direccion: '5' }, (error, l) => {
+        if (error)
+            console.log(error);
+        else {
+            if (l == null)
+                console.log('No existe local con esa dirección');
+            else {
+                for (let o of l._ordenadores) {
+                    let o1 = new Ordenador_1.Ordenador(o._nombre, o._precio, o._marca, o._fechaCompra, o._operativo);
+                    console.log(o1.imprimirOrdenador());
+                }
+                console.log('*********************************');
+                let l1 = new Local_1.Local(l._direccion, l._encargado, l._ordenadores, l._empleados);
+                l1.imprimirOrdenadores();
+            }
+        }
+    });
+    yield database_1.db.desconectarBD();
 });
 main();

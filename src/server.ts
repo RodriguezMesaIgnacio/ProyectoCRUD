@@ -1,7 +1,7 @@
 import { leerTeclado } from './vistas/leerteclado'
 import { Local, Locales, tLocal} from './models/Local'
 import { Persona, Personas, tPersona } from './models/Persona'
-import { Ordenador, tOrdenador } from './models/Ordenador'
+import { Ordenador } from './models/Ordenador'
 import { db } from './database/database'
 
 const main = async () => {
@@ -92,24 +92,28 @@ const main = async () => {
 
     //  CARGAR LOCAL Y VER ORDENADORES
 
-    // await db.conectarBD()
-    // await Locales.findOne(
-    //     {_direccion:'5'},
-    //     (error, l: any) => {
-    //         if (error) console.log(error)
-    //         else {
-    //             if (l==null) console.log('No existe local con esa dirección')
-    //             else {
-    //                 let o : tOrdenador
-    //                 for (o of l._ordenadores){
-    //                     let o1 = new Ordenador(o._nombre, o._precio, o._marca, o._fechaCompra, o._operativo)
-    //                     console.log(o1.imprimirOrdenador())
-    //                 }
-    //             }
-    //         }
-    //     }
-    // )  
-    // await db.desconectarBD()
+    await db.conectarBD()
+    await Locales.findOne(
+        {_direccion:'5'},
+        (error, l: any) => {
+            if (error) console.log(error)
+            else {
+                if (l==null) console.log('No existe local con esa dirección')
+                else {
+                    for (let o of l._ordenadores){
+                        let o1 = new Ordenador(o._nombre, o._precio, o._marca, o._fechaCompra, o._operativo)
+                        console.log(o1.imprimirOrdenador())
+                    }
+                    console.log('*********************************')
+                    let l1 = new Local(l._direccion, l._encargado, l._ordenadores, l._empleados)
+                    l1.imprimirOrdenadores()
+                }
+            }
+        }
+    )  
+    await db.desconectarBD()
+
+
 
 }
 main()

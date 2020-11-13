@@ -47,6 +47,12 @@ export class Local{
         this._empleados=empleados
     }
 
+    imprimirOrdenadores(){
+        for (let o of this._ordenadores){
+            console.log(o.imprimirOrdenador())
+        }
+    }
+
 }
 
 export type tLocal = {
