@@ -20,6 +20,7 @@ export const menu2 = async () => {
     console.log('3.- AÑADIR ORDENADOR')
     console.log('4.- LISTAR ORDENADORES')
     console.log('5.- SUELDO MEDIO DE LOS EMPLEADOS')
+    console.log('6.- EDAD MEDIA DE LOS EMPLEADOS')
     console.log('0.- SALIR')
     n = parseInt( await leerTeclado('--OPCIÓN--') )
     return n

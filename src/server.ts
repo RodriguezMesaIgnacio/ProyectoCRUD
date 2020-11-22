@@ -198,9 +198,17 @@ const main = async () => {
                             
                             case 5:
 
-                                console.log(`\n Este el sueldo medio del local ${localCargado.imprimirLocal()}:`)
+                                console.log(`\n Este es el sueldo medio del local ${localCargado.imprimirLocal()}:`)
                                 console.log('**************************')
                                 console.log(localCargado.sueldoMedio()+'€')
+
+                                break
+
+                            case 6:
+
+                                console.log(`\n Este es la edad media del local ${localCargado.imprimirLocal()}:`)
+                                console.log('**************************')
+                                console.log(localCargado.edadMedia()+' años')
 
                                 break
 

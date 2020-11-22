@@ -30,6 +30,7 @@ exports.menu2 = () => __awaiter(void 0, void 0, void 0, function* () {
     console.log('3.- AÑADIR ORDENADOR');
     console.log('4.- LISTAR ORDENADORES');
     console.log('5.- SUELDO MEDIO DE LOS EMPLEADOS');
+    console.log('6.- EDAD MEDIA DE LOS EMPLEADOS');
     console.log('0.- SALIR');
     n = parseInt(yield leerteclado_1.leerTeclado('--OPCIÓN--'));
     return n;

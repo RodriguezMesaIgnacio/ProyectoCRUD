@@ -74,11 +74,21 @@ export class Local{
             empleados++
             total=total+e.sueldo
         }
-        return total/empleados
+        return Math.round(total/empleados)
     }
 
     imprimirLocal(){
         return `Local con dirección ${this.direccion} y encargado ${this._encargado.nombre} ${this._encargado.apellidos} con DNI ${this._encargado.dni}`
+    }
+
+    edadMedia(){
+        let total = 0
+        let empleados = 0
+        for (let e of this._empleados){
+            empleados++
+            total = total + e.edad()
+        }
+        return Math.round(total/empleados)
     }
 
 }
