@@ -53,6 +53,34 @@ export class Local{
         }
     }
 
+    imprimirEmpleados(){
+        for(let e of this._empleados){
+            console.log(e.imprimirPersona())
+        }
+    }
+
+    addOrdenador(o:Ordenador){
+        this._ordenadores.push(o)
+    }
+
+    addEmpleado(e:Persona){
+        this._empleados.push(e)
+    }
+
+    sueldoMedio(){
+        let total=0
+        let empleados=0
+        for (let e of this._empleados){
+            empleados++
+            total=total+e.sueldo
+        }
+        return total/empleados
+    }
+
+    imprimirLocal(){
+        return `Local con dirección ${this.direccion} y encargado ${this._encargado.nombre} ${this._encargado.apellidos} con DNI ${this._encargado.dni}`
+    }
+
 }
 
 export type tLocal = {
@@ -64,7 +92,7 @@ export type tLocal = {
 
 const localSchema = new Schema({
     _direccion: {type: String, unique: true},
-    _encargado: {type: personaSchema},
+    _encargado: {type: personaSchema, unique: true},
     _ordenadores: {type: [ordenadorSchema]},
     _empleados: {type: [personaSchema]}
 })

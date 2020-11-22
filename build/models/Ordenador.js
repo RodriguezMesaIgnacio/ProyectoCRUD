@@ -72,11 +72,3 @@ exports.ordenadorSchema = new mongoose_1.Schema({
     _ultActualizacion: { type: Date },
     _operativo: { type: Boolean }
 });
-// export type tOrdenador = {
-//     _nombre : string
-//     _precio : number
-//     _marca : string
-//     _fechaCompra : Date
-//     _ultActualizacion: Date
-//     _operativo : boolean
-// }

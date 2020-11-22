@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Personas = exports.personaSchema = exports.Persona = void 0;
+exports.personaSchema = exports.Persona = void 0;
 const mongoose_1 = require("mongoose");
 class Persona {
     constructor(dni, nombre, apellidos, telefono, fechaNacimiento, sueldo) {
@@ -65,4 +65,3 @@ exports.personaSchema = new mongoose_1.Schema({
     _fechaNacimiento: { type: Date },
     _sueldo: { type: Number },
 });
-exports.Personas = mongoose_1.model('Personas', exports.personaSchema);

@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose'
+import {Schema} from 'mongoose'
 
 export class Persona{
 
@@ -95,5 +95,3 @@ export const personaSchema = new Schema({
     _fechaNacimiento : {type: Date},
     _sueldo : {type : Number},
 })
-
-export const Personas = model('Personas', personaSchema)

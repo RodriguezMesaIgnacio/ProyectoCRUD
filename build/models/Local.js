@@ -40,11 +40,34 @@ class Local {
             console.log(o.imprimirOrdenador());
         }
     }
+    imprimirEmpleados() {
+        for (let e of this._empleados) {
+            console.log(e.imprimirPersona());
+        }
+    }
+    addOrdenador(o) {
+        this._ordenadores.push(o);
+    }
+    addEmpleado(e) {
+        this._empleados.push(e);
+    }
+    sueldoMedio() {
+        let total = 0;
+        let empleados = 0;
+        for (let e of this._empleados) {
+            empleados++;
+            total = total + e.sueldo;
+        }
+        return total / empleados;
+    }
+    imprimirLocal() {
+        return `Local con dirección ${this.direccion} y encargado ${this._encargado.nombre} ${this._encargado.apellidos} con DNI ${this._encargado.dni}`;
+    }
 }
 exports.Local = Local;
 const localSchema = new mongoose_1.Schema({
     _direccion: { type: String, unique: true },
-    _encargado: { type: Persona_1.personaSchema },
+    _encargado: { type: Persona_1.personaSchema, unique: true },
     _ordenadores: { type: [Ordenador_1.ordenadorSchema] },
     _empleados: { type: [Persona_1.personaSchema] }
 });
