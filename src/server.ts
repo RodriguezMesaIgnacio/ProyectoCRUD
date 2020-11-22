@@ -1,6 +1,6 @@
 import { leerTeclado, leeNumero, leeDNI, leeFecha, leeYN } from './vistas/leerteclado'
-import { Local, Locales, tLocal} from './models/Local'
-import { Persona,  tPersona } from './models/Persona'
+import { Local, Locales} from './models/Local'
+import { Persona } from './models/Persona'
 import { Ordenador } from './models/Ordenador'
 import { db } from './database/database'
 import { menu, menu2 } from './vistas/menu'

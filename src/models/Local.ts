@@ -83,13 +83,6 @@ export class Local{
 
 }
 
-export type tLocal = {
-    _direccion : string
-    _encargado : Persona
-    _ordenadores : Array<Ordenador>
-    _empleados : Array<Persona>
-}
-
 const localSchema = new Schema({
     _direccion: {type: String, unique: true},
     _encargado: {type: personaSchema, unique: true},

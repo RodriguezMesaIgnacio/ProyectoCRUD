@@ -78,14 +78,6 @@ export class Persona{
 
 }
 
-export type tPersona = {
-    _dni : string
-    _nombre : string
-    _apellidos : string
-    _telefono : number
-    _fechaNacimiento : Date
-    _sueldo : number
-}
 
 export const personaSchema = new Schema({
     _dni: {type: String, unique: true},
