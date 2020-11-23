@@ -24,6 +24,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                 let l1;
                 let p1;
                 try {
+                    let nombreL = yield leerteclado_1.leerTeclado('Introduce el nombre del nuevo Local');
                     let direccion = yield leerteclado_1.leerTeclado('Introducir la dirección del nuevo Local');
                     let dni = yield leerteclado_1.leeDNI('Introducir DNI (NNNNNNNNL) del encargado');
                     let nombre = yield leerteclado_1.leerTeclado('Introducir nombre del encargado');
@@ -34,9 +35,10 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                     p1 = new Persona_1.Persona(dni, nombre, apellidos, telefono, fecha, sueldo);
                     let o = new Array();
                     let p = new Array();
-                    l1 = new Local_1.Local(direccion, p1, o, p);
+                    l1 = new Local_1.Local(nombreL, direccion, p1, o, p);
                     yield database_1.db.conectarBD();
                     const dSchema = {
+                        _nombre: l1.nombre,
                         _direccion: l1.direccion,
                         _encargado: l1.encargado,
                         _ordenadores: l1.ordenadores,
@@ -67,9 +69,10 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                     let ordenadores = new Array();
                     for (let o of tl._ordenadores) {
                         let to = new Ordenador_1.Ordenador(o._nombre, o._precio, o._marca, o._fechaCompra, o._operativo);
+                        to.ultActualizacion = o._ultActualizacion;
                         ordenadores.push(to);
                     }
-                    let l = new Local_1.Local(tl._direccion, encargado, ordenadores, empleados);
+                    let l = new Local_1.Local(tl._nombre, tl._direccion, encargado, ordenadores, empleados);
                     console.log(l.imprimirLocal());
                 }
                 yield database_1.db.desconectarBD();
@@ -77,12 +80,12 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             case 3:
                 let localCargado = null;
                 try {
-                    let dir = yield leerteclado_1.leerTeclado("Introduce la direccion del local");
+                    let nombre = yield leerteclado_1.leerTeclado("Introduce el nombre del local");
                     yield database_1.db.conectarBD();
                     let tl;
                     let query = yield Local_1.Locales.find({});
                     for (tl of query) {
-                        if (dir == tl._direccion) {
+                        if (nombre == tl._nombre) {
                             let encargado = new Persona_1.Persona(tl._encargado._dni, tl._encargado._nombre, tl._encargado._apellidos, tl._encargado._telefono, tl._encargado._fechaNacimiento, tl._encargado._sueldo);
                             let empleados = new Array();
                             for (let e of tl._empleados) {
@@ -92,9 +95,10 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                             let ordenadores = new Array();
                             for (let o of tl._ordenadores) {
                                 let to = new Ordenador_1.Ordenador(o._nombre, o._precio, o._marca, o._fechaCompra, o._operativo);
+                                to.ultActualizacion = o._ultActualizacion;
                                 ordenadores.push(to);
                             }
-                            localCargado = new Local_1.Local(tl._direccion, encargado, ordenadores, empleados);
+                            localCargado = new Local_1.Local(tl._nombre, tl._direccion, encargado, ordenadores, empleados);
                         }
                     }
                     yield database_1.db.desconectarBD();
@@ -126,6 +130,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                                 localCargado.imprimirEmpleados();
                                 yield database_1.db.conectarBD();
                                 yield Local_1.Locales.findOneAndUpdate({ _direccion: localCargado.direccion }, {
+                                    _nombre: localCargado.nombre,
                                     _direccion: localCargado.direccion,
                                     _encargado: localCargado.encargado,
                                     _ordenadores: localCargado.ordenadores,
@@ -166,6 +171,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                                 localCargado.imprimirOrdenadores();
                                 yield database_1.db.conectarBD();
                                 yield Local_1.Locales.findOneAndUpdate({ _direccion: localCargado.direccion }, {
+                                    _nombre: localCargado.nombre,
                                     _direccion: localCargado.direccion,
                                     _encargado: localCargado.encargado,
                                     _ordenadores: localCargado.ordenadores,
@@ -190,6 +196,70 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                                 console.log(`\n Este es la edad media del local ${localCargado.imprimirLocal()}:`);
                                 console.log('**************************');
                                 console.log(localCargado.edadMedia() + ' años');
+                                break;
+                            case 7:
+                                let i = localCargado.reparar();
+                                for (let n of i) {
+                                    console.log(`El ${n.nombre} debe ser reparado`);
+                                }
+                                break;
+                            case 8:
+                                if (localCargado.ordenadores.length == 0) {
+                                    console.log('No existen ordenadores en este local');
+                                }
+                                else {
+                                    let pc = yield leerteclado_1.leerTeclado('Introduzca el nombre del PC');
+                                    let index = -1;
+                                    for (let o of localCargado.ordenadores) {
+                                        if (o.nombre == pc) {
+                                            index = localCargado.ordenadores.indexOf(o);
+                                        }
+                                    }
+                                    if (index != -1) {
+                                        let n3;
+                                        let pc = localCargado.ordenadores[index];
+                                        do {
+                                            n3 = yield menu_1.menu3();
+                                            switch (n3) {
+                                                case 1:
+                                                    console.log(pc.reparar());
+                                                    break;
+                                                case 2:
+                                                    let v = parseInt(yield leerteclado_1.leeNumero('Introduce el nuevo valor del PC'));
+                                                    pc.precio = v;
+                                                    break;
+                                                case 0:
+                                                    console.log('SALIENDO DEL PC SELECCIONADO');
+                                                    break;
+                                                default:
+                                                    console.log('Opción incorrecta');
+                                                    break;
+                                            }
+                                        } while (n3 != 0);
+                                    }
+                                    else {
+                                        console.log('No existe un PC con ese nombre');
+                                    }
+                                }
+                                yield database_1.db.conectarBD();
+                                yield Local_1.Locales.findOneAndUpdate({ _direccion: localCargado.direccion }, {
+                                    _nombre: localCargado.nombre,
+                                    _direccion: localCargado.direccion,
+                                    _encargado: localCargado.encargado,
+                                    _ordenadores: localCargado.ordenadores,
+                                    _empleados: localCargado.empleados
+                                }, {
+                                    runValidators: true
+                                })
+                                    .catch((err) => console.log('ERROR: ' + err));
+                                yield database_1.db.desconectarBD();
+                                break;
+                            case 9:
+                                let fecha = new Date(yield leerteclado_1.leeFecha('Introduce la fecha límite de los ordenadores a revisar'));
+                                let o = localCargado.revisar(fecha);
+                                for (let i of o) {
+                                    console.log(`El ${i.nombre} se actualizo por ultima vez ${i.ultActualizacion} y debería ser revisado`);
+                                }
                                 break;
                             case 0:
                                 console.log('SALIENDO DEL LOCAL SELECCIONADO');

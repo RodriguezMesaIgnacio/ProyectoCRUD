@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.menu2 = exports.menu = void 0;
+exports.menu3 = exports.menu2 = exports.menu = void 0;
 const leerteclado_1 = require("./leerteclado");
 exports.menu = () => __awaiter(void 0, void 0, void 0, function* () {
     let n;
@@ -31,6 +31,18 @@ exports.menu2 = () => __awaiter(void 0, void 0, void 0, function* () {
     console.log('4.- LISTAR ORDENADORES');
     console.log('5.- SUELDO MEDIO DE LOS EMPLEADOS');
     console.log('6.- EDAD MEDIA DE LOS EMPLEADOS');
+    console.log('7.- ORDENADORES QUE DEBEN SER REPARADOS');
+    console.log('8.- SELECCIONAR ORDENADOR');
+    console.log('9.- ORDENADORES A REVISAR');
+    console.log('0.- SALIR');
+    n = parseInt(yield leerteclado_1.leerTeclado('--OPCIÓN--'));
+    return n;
+});
+exports.menu3 = () => __awaiter(void 0, void 0, void 0, function* () {
+    let n;
+    console.log('\n');
+    console.log('1.- ARREGLAR PC');
+    console.log('2.- CAMBIAR VALOR DEL PC');
     console.log('0.- SALIR');
     n = parseInt(yield leerteclado_1.leerTeclado('--OPCIÓN--'));
     return n;

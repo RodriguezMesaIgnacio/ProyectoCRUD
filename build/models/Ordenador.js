@@ -54,12 +54,21 @@ class Ordenador {
         this._operativo = operativo;
         this._ultActualizacion = new Date();
     }
-    imprimirOrdenador() {
-        if (this.operativo) {
-            return `El ordenador ${this._nombre} vale ${this._precio} es de la marca ${this._precio} y funciona correctamente`;
+    reparar() {
+        if (!this._operativo) {
+            this._operativo = true;
+            return "El PC fue reparado";
         }
         else {
-            return `El ordenador ${this._nombre} vale ${this._precio} es de la marca ${this._precio} y necesita ser reparado`;
+            return "Este PC funciona correctamente";
+        }
+    }
+    imprimirOrdenador() {
+        if (this.operativo) {
+            return `El ordenador ${this._nombre} vale ${this._precio} es de la marca ${this._marca} y funciona correctamente`;
+        }
+        else {
+            return `El ordenador ${this._nombre} vale ${this._precio} es de la marca ${this._marca} y necesita ser reparado`;
         }
     }
 }

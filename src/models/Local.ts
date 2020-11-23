@@ -3,16 +3,26 @@ import { Ordenador, ordenadorSchema } from './Ordenador'
 import { Persona, personaSchema } from './Persona'
 
 export class Local{
+    private _nombre: string
     private _direccion : string
     private _encargado : Persona
     private _ordenadores : Array<Ordenador>
     private _empleados : Array<Persona>
 
-    constructor(direccion:string, encargado:Persona, ordenadores:Array<Ordenador>, empleados:Array<Persona>){
+    constructor(nombre:string, direccion:string, encargado:Persona, ordenadores:Array<Ordenador>, empleados:Array<Persona>){
+        this._nombre=nombre
         this._direccion=direccion
         this._encargado=encargado
         this._ordenadores=ordenadores
         this._empleados=empleados
+    }
+
+    get nombre(){
+        return this._nombre
+    }
+
+    set nombre(nombre:string){
+        this._nombre=nombre
     }
 
     get direccion(){
@@ -91,9 +101,30 @@ export class Local{
         return Math.round(total/empleados)
     }
 
+    reparar(){
+        let os:Array<Ordenador>=new Array()
+        for (let i of this._ordenadores){
+            if (!i.operativo){
+                os.push(i)
+            }
+        }
+        return os
+    }
+
+    revisar(fecha:Date){
+        let os:Array<Ordenador>=new Array()
+        for (let i of this._ordenadores){
+            if (i.ultActualizacion<fecha){
+                os.push(i)
+            }
+        }
+        return os
+    }
+
 }
 
 const localSchema = new Schema({
+    _nombre:{type:String, unique:true},
     _direccion: {type: String, unique: true},
     _encargado: {type: personaSchema, unique: true},
     _ordenadores: {type: [ordenadorSchema]},
