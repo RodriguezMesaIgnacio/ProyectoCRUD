@@ -130,7 +130,7 @@ const main = async () => {
 
                                 await db.conectarBD()
                                 await Locales.findOneAndUpdate(
-                                    {_direccion:localCargado.direccion},
+                                    {_nombre:localCargado.nombre},
                                     {
                                         _nombre:localCargado.nombre,
                                         _direccion:localCargado.direccion,
@@ -178,7 +178,7 @@ const main = async () => {
 
                                 await db.conectarBD()
                                 await Locales.findOneAndUpdate(
-                                    {_direccion:localCargado.direccion},
+                                    {_nombre:localCargado.nombre},
                                     {
                                         _nombre:localCargado.nombre,
                                         _direccion:localCargado.direccion,
